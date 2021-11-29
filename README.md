@@ -1,2 +1,2 @@
-# fishes-app
-Simple android app in Kotlin
+# FishesApp
+Simple opengl android app in Kotlin

@@ -6,7 +6,7 @@ import com.kmalinowski.fishes.constants.LOG_TAG
 
 class FishesApplication: Application() {
     override fun onCreate() {
-        Log.i(LOG_TAG, "Application started")
         super.onCreate()
+        Log.i(LOG_TAG, "Application started")
     }
 }

@@ -5,18 +5,21 @@ import android.os.PersistableBundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.kmalinowski.fishes.constants.LOG_TAG
+import com.kmalinowski.fishes.engine.FishesRenderer
 
-class FishesActivity: AppCompatActivity() {
+class FishesActivity : AppCompatActivity() {
     private var fishesGLView: FishesGLView? = null
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fishes)
 
         val actionBar = supportActionBar
         actionBar?.hide()
 
         fishesGLView = findViewById(R.id.fishes_gl_view)
-        fishesGLView?.setOnClickListener { Log.i(LOG_TAG, "Click") }
+        fishesGLView!!.setEGLContextClientVersion(2)
+        fishesGLView!!.setOnClickListener { Log.i(LOG_TAG, "Click") }
+        fishesGLView!!.setRenderer(FishesRenderer(this))
     }
 }

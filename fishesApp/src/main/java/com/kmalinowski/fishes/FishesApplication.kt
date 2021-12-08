@@ -2,7 +2,8 @@ package com.kmalinowski.fishes
 
 import android.app.Application
 import android.util.Log
-import com.kmalinowski.fishes.constants.LOG_TAG
+
+const val LOG_TAG = "APP"
 
 class FishesApplication: Application() {
     override fun onCreate() {

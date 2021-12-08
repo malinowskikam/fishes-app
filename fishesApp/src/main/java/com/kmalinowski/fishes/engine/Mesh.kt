@@ -1,6 +1,7 @@
 package com.kmalinowski.fishes.engine
 
 import android.opengl.GLES20
+import com.kmalinowski.fishes.checkGLErrors
 import java.nio.*
 
 abstract class Mesh {
@@ -64,14 +65,14 @@ open class Mesh2d(vertices: FloatArray, uvs: FloatArray, indices: IntArray) : Me
             GLES20.GL_ARRAY_BUFFER,
             vertexBufferId,
             createBuffer(vertices),
-            vertices.size * 4
+            vertices.size * Float.SIZE_BYTES
         )
 
         createBufferObject(
             GLES20.GL_ARRAY_BUFFER,
             uvBufferId,
             createBuffer(uvs),
-            uvs.size * 4
+            uvs.size * Float.SIZE_BYTES
         )
 
         vertexStride = calcVertexStride()
@@ -80,8 +81,10 @@ open class Mesh2d(vertices: FloatArray, uvs: FloatArray, indices: IntArray) : Me
             GLES20.GL_ELEMENT_ARRAY_BUFFER,
             indexBufferId,
             createBuffer(indices),
-            indices.size * 4
+            indices.size * Int.SIZE_BYTES
         )
+
+        checkGLErrors()
     }
 }
 
@@ -94,13 +97,13 @@ val spriteMeshVertices = floatArrayOf(
 
 val spriteMeshUvs = floatArrayOf(
     0.0f, 0.0f,
-    0.0f, 1.0f,
-    1.0f, 1.0f,
     1.0f, 0.0f,
+    1.0f, 1.0f,
+    0.0f, 1.0f,
 )
 
 val spriteMeshIndices = intArrayOf(
-    0, 3, 2, 0, 2, 1
+    0, 2, 1, 0, 3, 2,
 )
 
 class SpriteMesh : Mesh2d(spriteMeshVertices, spriteMeshUvs, spriteMeshIndices)

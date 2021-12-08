@@ -1,14 +1,13 @@
 package com.kmalinowski.fishes
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.kmalinowski.fishes.constants.LOG_TAG
-import com.kmalinowski.fishes.engine.FishesRenderer
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 
 class FishesActivity : AppCompatActivity() {
-    private var fishesGLView: FishesGLView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,9 +16,14 @@ class FishesActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.hide()
 
-        fishesGLView = findViewById(R.id.fishes_gl_view)
-        fishesGLView!!.setEGLContextClientVersion(2)
-        fishesGLView!!.setOnClickListener { Log.i(LOG_TAG, "Click") }
-        fishesGLView!!.setRenderer(FishesRenderer(this))
+        val fishesGLView: FishesGLView = findViewById(R.id.fishes_gl_view)!!
+        fishesGLView.setOnClickListener { Log.i(LOG_TAG, "Click") }
+        fishesGLView.initGlContext()
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, fishesGLView).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
     }
 }

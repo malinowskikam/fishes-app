@@ -17,13 +17,13 @@ class FishesActivity : AppCompatActivity() {
         actionBar?.hide()
 
         val fishesGLView: FishesGLView = findViewById(R.id.fishes_gl_view)!!
-        fishesGLView.setOnClickListener { Log.i(LOG_TAG, "Click") }
         fishesGLView.initGlContext()
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(window, fishesGLView).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
-            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
     }
 }

@@ -3,6 +3,7 @@ package com.kmalinowski.fishes.engine
 import android.opengl.GLES20
 import android.opengl.Matrix
 import com.kmalinowski.fishes.scenes.Scene
+import com.kmalinowski.fishes.util.radToDegreeConst
 
 class DrawableObject(private val mesh: Mesh, private val texture: Texture) {
     var position: FloatArray = floatArrayOf(0.0f, 0.0f)
@@ -37,11 +38,7 @@ class DrawableObject(private val mesh: Mesh, private val texture: Texture) {
             0
         )
 
-        val modelMatrix = getModelMatrix()
-        GLES20.glUniformMatrix4fv(program.modelMatrixLocation, 1, false, modelMatrix, 0)
-
-        val vpMatrix = FloatArray(16)
-
+        GLES20.glUniformMatrix4fv(program.modelMatrixLocation, 1, false, getModelMatrix(), 0)
         GLES20.glUniformMatrix4fv(program.vpMatrixLocation, 1, false, scene.pvMatrix, 0)
 
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
@@ -63,7 +60,7 @@ class DrawableObject(private val mesh: Mesh, private val texture: Texture) {
         val modelMatrix = FloatArray(16)
         Matrix.setIdentityM(modelMatrix, 0)
         Matrix.translateM(modelMatrix, 0, position[0], position[1], 0.0f)
-        Matrix.rotateM(modelMatrix, 0, rotation, 0.0f, 0.0f, 1.0f)
+        Matrix.rotateM(modelMatrix, 0, rotation * radToDegreeConst, 0.0f, 0.0f, 1.0f)
         Matrix.scaleM(modelMatrix, 0, scale[0], scale[1], 1.0f)
         return modelMatrix
     }

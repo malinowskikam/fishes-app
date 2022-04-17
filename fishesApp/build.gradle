@@ -9,24 +9,43 @@ android {
 
     defaultConfig {
         applicationId "com.kmalinowski.fishes"
-        minSdkVersion 23
+        minSdkVersion 29
         targetSdkVersion 31
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.0"
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            debuggable false
+            manifestPlaceholders = [profileable: false]
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationIdSuffix = ".release"
+            resValue "string", "app_name_fishes", "Fishes"
+        }
+        profiling {
+            minifyEnabled false
+            debuggable false
+            manifestPlaceholders = [profileable: true]
+            applicationIdSuffix = ".profiling"
+            signingConfig signingConfigs.debug
+            resValue "string", "app_name_fishes", "Fishes Prof"
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
+            manifestPlaceholders = [profileable: false]
+            applicationIdSuffix = ".debug"
+            resValue "string", "app_name_fishes", "Fishes Debug"
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 }
 
@@ -34,8 +53,8 @@ dependencies {
     implementation("com.google.guava:guava:31.0.1-android")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

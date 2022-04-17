@@ -11,7 +11,7 @@ import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
 import java.io.InputStream
 
-fun <T> loadAsset(context: Context, path: String, handleStream: (InputStream) -> T): T?{
+fun <T> loadAsset(context: Context, path: String, handleStream: (InputStream) -> T): T? {
     var loadedAsset: T? = null
     try {
         context.assets.open(path).use { stream ->
@@ -19,9 +19,8 @@ fun <T> loadAsset(context: Context, path: String, handleStream: (InputStream) ->
         }
     } catch (e: IOException) {
         Log.e(LOG_TAG, "Loading asset failed: $path", e)
-    } finally {
-        return loadedAsset
     }
+    return loadedAsset
 }
 
 fun loadAssetAsText(context: Context, path: String): String? {
